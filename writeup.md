@@ -36,31 +36,40 @@ You're reading it!
 
 ### Histogram of Oriented Gradients (HOG)
 
-#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. HOG Features
 
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+
 ![alt text][image1]
 
 There are five parameters in `HOG_features()` for extracting of features: `color_space`, `orient`, `pix_per_cell`,  `cell_per_block`, and `hog_channel`. I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `RGB` color space and HOG parameters of `orient=9`, `pix_per_cell=8` and `cell_per_block=2`, hog_channel():
+
 ![alt text][image2]
 
-#### 2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Feature Extraction
 
 I compared the results with different color spaces and same other parameters. The second HOG image with HSV and the forth image with HLS are seem worse than with other color spaces. I just chose the first one RGB color space. The results are as follows:
+
 ![alt text][image3]
 
 I also tried different HOG channels, and same other parameters. The result with the third channel seems worse than other with other channels. The choose of channel will be decided next with the classification accuracy. The comparison results are in the following picture:
+
 ![alt text][image4]
 
 Then I tried to vary the orientation, pixels_per_cell, cells_per_block. The last two HOG image of car image and notcar image are obtained with pix_per_block is equal to 4 and 16. It is obvious that the performance is not good as results with other parameters. The results with original parameters, with changed parameter cell_per_block=4 and cell_per_block=1 are quite small, whereas the results with the results with changed parameter orient=8 and cell_per_block=10 are a little different. But I can not say which one is better. And I just use the original parameter. The results are as follows:
 ![alt text][image5]
 
 
-#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. Classifier
 
-I trained a linear SVM using...
+At first, I obtained all the features of car images and notcar images. Then I created a labels vector to save the expected results, which means, the result is 1 if this is car image, and the result is 0 if this is notcar image. After that, I shuffled all the data, slit it to train data and test data. Then `StandardScaler` implements the Transformer to computer the mean and standard deviation on the training fetures. And this transformation is also applied to test features. 
+After I obtained the transformed train features and test features, I used a linear SVC to train a classifier. 
+| CHALLEL        		|     C        					| Gamma    | Training Accuracy	| Test Accuracy    |
+|:---------------------:|:-------------:|:---------------------:|:-------------:|:-------------:|
+| '0'     		|     1        					| Default    | 0.92	| 0.92    |
+
 
 ### Sliding Window Search
 
