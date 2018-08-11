@@ -66,8 +66,9 @@ Then I tried to vary the orientation, pixels_per_cell, cells_per_block. The last
 
 At first, I obtained all the features of car images and notcar images. Then I created a labels vector to save the expected results, which means, the result is 1 if this is car image, and the result is 0 if this is notcar image. After that, I shuffled all the data, slit it to train data and test data. Then `StandardScaler` implements the Transformer to computer the mean and standard deviation on the training fetures. And this transformation is also applied to test features. 
 After I obtained the transformed train features and test features, I used a linear SVC to train a classifier. 
+
 | CHALLEL        		|     C        					| Gamma    | Training Accuracy	| Test Accuracy    |
-|:---------------------:|:-------------:|:---------------------:|:-------------:|:-------------:|
+|:---------------------:|:-------------:|:-------------:|:-------------:|:-------------:|
 | '0'     		|     1        					| Default    | 0.92	| 0.92    |
 
 
