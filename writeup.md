@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 [image2]: ./output_images/HOG_example.jpg
 [image3]: ./output_images/Compare_Color.jpg
 [image4]: ./output_images/Compare_Channel.jpg
-[image5]: ./output_images/Compare_HOG.png
+[image5]: ./output_images/Compare_HOG.jpg
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
@@ -41,22 +41,23 @@ You're reading it!
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
-
 ![alt text][image1]
 
 There are five parameters in `HOG_features()` for extracting of features: `color_space`, `orient`, `pix_per_cell`,  `cell_per_block`, and `hog_channel`. I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `RGB` color space and HOG parameters of `orient=9`, `pix_per_cell=8` and `cell_per_block=2`, hog_channel():
-
 ![alt text][image2]
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
-I compared the results with different color spaces and same other parameters, which shows as in the following picture:
+I compared the results with different color spaces and same other parameters. The second HOG image with HSV and the forth image with HLS are seem worse than with other color spaces. I just chose the first one RGB color space. The results are as follows:
 ![alt text][image3]
-I also tried different HOG channels, and same other parameters, which shows in the following picture:
+
+I also tried different HOG channels, and same other parameters. The result with the third channel seems worse than other with other channels. The choose of channel will be decided next with the classification accuracy. The comparison results are in the following picture:
 ![alt text][image4]
-Then I tried to vary the orientation, pixels_per_cell, cells_per_block, which shows in the following picture:
+
+Then I tried to vary the orientation, pixels_per_cell, cells_per_block. The last two HOG image of car image and notcar image are obtained with pix_per_block is equal to 4 and 16. It is obvious that the performance is not good as results with other parameters. The results with original parameters, with changed parameter cell_per_block=4 and cell_per_block=1 are quite small, whereas the results with the results with changed parameter orient=8 and cell_per_block=10 are a little different. But I can not say which one is better. And I just use the original parameter. The results are as follows:
 ![alt text][image5]
-The last two HOG image of car image and notcar image are obtained with pix_per_block is equal to 4 and 16. It is obvious that the performance is not good as results with other parameters. The results with original parameters, with changed parameter cell_per_block=4 and cell_per_block=1 are quite small, whereas the results with the results with changed parameter orient=8 and cell_per_block=10 are a little different. But I can not say which one is better. And I just use the original parameter.
+
+
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 I trained a linear SVM using...
