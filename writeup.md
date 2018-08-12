@@ -70,9 +70,16 @@ After I obtained the transformed train features and test features, I used a line
 | CHALLEL        		|     Color Space    | orientation   |  pix_per_cell   | cell_per_block   |Training Accuracy	| Test Accuracy    |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
 | '0'     		|     RGB        					|9   | 8   |2  |0.988	| 0.919    |
-| 'ALL'     		|     RGB        					|9   | 8   |2  |0.988 	| 0.921   |
-| 'ALL'     		|     RGB        					|10   | 8   |2  |0.988 	| 0.921   |
+| 'ALL'     		|     RGB        				|9   | 8   |2  |0.988 	| 0.921   |
+| 'ALL'     		|     HSV      					|9   | 8   |2  | 0.970	| 0.894   |
+| 'ALL'     		|     LUV      					|9   | 8   |2  | 0.990 	| 0.914 |
+| 'ALL'     		|     HLS      					|9   | 8   |2  | 	0.968| 0.898 |
 | 'ALL'     		|     YUV      					|9   | 8   |2  |0.990 	| 0.908   |
+| 'ALL'     		|    YCrCb     					|9   | 8   |2  | 0.992	| 0.921  |
+| 'ALL'     		|     RGB        					|10  | 8   |2  |	0.996| 0.914  |
+| 'ALL'     		|     RGB        					|10   | 8   |1  | 	|  |
+| 'ALL'     		|    YUV        					|10   | 8   |2  |0.996 	| 0.911   |
+
 
 
 ### Sliding Window Search
