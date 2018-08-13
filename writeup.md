@@ -44,7 +44,7 @@ I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an 
 
 ![alt text][image1]
 
-There are five parameters in `HOG_features()` for extracting of features: `color_space`, `orient`, `pix_per_cell`,  `cell_per_block`, and `hog_channel`. I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `RGB` color space and HOG parameters of `orient=9`, `pix_per_cell=8` and `cell_per_block=2`, hog_channel():
+There are five parameters in `HOG_features()` for extracting of features: `color_space`, `orient`, `pix_per_cell`,  `cell_per_block`, and `hog_channel`. I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `RGB` color space and HOG parameters of `orient=9`, `pix_per_cell=8` and `cell_per_block=2`, `hog_channel=0`:
 
 ![alt text][image2]
 
@@ -69,16 +69,21 @@ After I obtained the transformed train features and test features, I used a line
 
 | CHALLEL        		|     Color Space    | orientation   |  pix_per_cell   | cell_per_block   |Training Accuracy	| Test Accuracy    |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| '0'     		|     RGB        					|9   | 8   |2  |0.988	| 0.919    |
-| 'ALL'     		|     RGB        				|9   | 8   |2  |0.988 	| 0.921   |
-| 'ALL'     		|     HSV      					|9   | 8   |2  | 0.970	| 0.894   |
-| 'ALL'     		|     LUV      					|9   | 8   |2  | 0.990 	| 0.914 |
-| 'ALL'     		|     HLS      					|9   | 8   |2  | 	0.968| 0.898 |
-| 'ALL'     		|     YUV      					|9   | 8   |2  |0.990 	| 0.908   |
-| 'ALL'     		|    YCrCb     					|9   | 8   |2  | 0.992	| 0.921  |
+| '0'     		|     RGB        					|9   | 8   |2  |0.988	| 0.919  |
+| 'ALL'     		|     RGB        				|9   | 8   |2  |0.988 | 0.921  |
+| 'ALL'     		|     HSV      					|9   | 8   |2  |0.970	| 0.894  |
+| 'ALL'     		|     LUV      					|9   | 8   |2  |0.990 | 0.914  |
+| 'ALL'     		|     HLS      					|9   | 8   |2  |0.968 | 0.898  |
+| 'ALL'     		|     YUV      					|9   | 8   |2  |0.990 | 0.908  |
+| 'ALL'     		|    YCrCb     					|9   | 8   |2  |0.992	| 0.921  |
+| 'ALL'     		|     RGB        				|9   | 8   |1  |0.990 | 0.884  |
 | 'ALL'     		|     RGB        					|10  | 8   |2  |	0.996| 0.914  |
-| 'ALL'     		|     RGB        					|10   | 8   |1  | 	|  |
+| 'ALL'     		|     RGB        					|11   | 8   |2  | 	|  |
 | 'ALL'     		|    YUV        					|10   | 8   |2  |0.996 	| 0.911   |
+
+12, 8, 2, 0.9989, 0.9538
+9, 8, 8, 0.9994, 0.9552
+
 
 
 
@@ -128,4 +133,5 @@ Here's an example result showing the heatmap from a series of frames of video, t
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+In this project, I dont why the test accuracy is lower than the results online from other students. The windows have huge effect on the results. If there are not enough windows, and the prediction is not right, then there are not enough number to estimate there is a car. If there are so many windows, there is chance that the classifier predicts that there are more car than the real number. So it is really difficult to choose the windows.   
 
