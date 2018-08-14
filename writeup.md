@@ -20,30 +20,21 @@ The goals / steps of this project are the following:
 [image3]: ./output_images/Compare_Color.jpg
 [image4]: ./output_images/Compare_Channel.jpg
 [image5]: ./output_images/Compare_HOG.jpg
-[image6]: ./output_images/example1.jpg
-[image7]: ./output_images/example2.jpg
-[image8]: ./output_images/example3.jpg
-[image9]: ./output_images/example4.jpg
-[image10]: ./output_images/example5.jpg
+[image6]: ./output_images/window_example.jpg
+[image7]: ./output_images/example1.jpg
+[image8]: ./output_images/example2.jpg
+[image9]: ./output_images/example3.jpg
+[image10]: ./output_images/example4.jpg
+[image11]: ./output_images/example5.jpg
+[image12]: ./output_images/1.jpg
 [video1]: ./output_images/example3.jpg
 
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
-
----
-### Writeup / README
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
-
-You're reading it!
 
 ### Histogram of Oriented Gradients (HOG)
 
 #### 1. HOG Features
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
-
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+I started by reading in all the `vehicle` and `non-vehicle` images, which is implemented in line 127 through 141 in `Classifier.py`. Here is an example of one of each of the `vehicle` and `non-vehicle` classes: 
 
 ![alt text][image1]
 
@@ -52,7 +43,7 @@ There are five parameters in `HOG_features()` for extracting of features: `color
 ![alt text][image2]
 
 #### 2. Feature Extraction
-For HOG extraction I tried different combination of parameters to check the HOG of car and notcar image. But it is difficult to estimate which one is better from HOG features. So I have also tried different parameter combination of HOG in the classifier part and chosen the combination with best test accuracy.()
+For HOG extraction I tried different combination of parameters to check the HOG features of car and notcar image, which is implemented in function `get_hog_features()`: line 71 through 125 and function `get_hog_features()`: line 50 through 69 in `Classifier.py`. But it is difficult to estimate which one is better from HOG features. So I have also tried different parameter combination of HOG in the classifier part and chosen the combination with best test accuracy.
 I compared the results with different color spaces and same other parameters. The results are as follows:
 
 ![alt text][image3]
@@ -64,10 +55,10 @@ I also tried different HOG channels, and same other parameters. The result with 
 Then I tried to vary the orientation, pixels_per_cell, cells_per_block. The last two HOG image of car image and notcar image are obtained with pix_per_block is equal to 4 and 16. It is obvious that the performance is not good as results with other parameters. The results with original parameters, with changed parameter cell_per_block=4 and cell_per_block=1 are quite small, whereas the results with the results with changed parameter orient=8 and cell_per_block=10 are a little different. But I can not decide which one is better. The results are as follows:
 ![alt text][image5] 
 
-Except HOG features I also used color histogram features(), spatial binning features().
-#### 3. Classifier
+Except HOG features I also used color histogram features (in function `color_hist()`: line 39 through 47 in `Classifier.py`), spatial binning features (in function `bin_spatial()`: line 33 through 38 in `Classifier.py`).
 
-At first, I obtained all the features of car images and notcar images. Then I created a labels vector to save the expected results, which means, the result is 1 if this is car image, and the result is 0 if this is notcar image. After that, I shuffled all the data, slit it to train data and test data. Then `StandardScaler` implements the Transformer to computer the mean and standard deviation on the training fetures. And this transformation is also applied to test features. 
+#### 3. Classifier
+At first, I obtained all the features of car images and notcar images. Then I created a labels vector to save the expected results, which means, the result is 1 if this is car image, and the result is 0 if this is notcar image. After that, I shuffled all the data, slit it to train data and test data. Then `StandardScaler` implements the Transformer to computer the mean and standard deviation on the training fetures. And this transformation is also applied to test features. The code of this part is implemented in line 148 through 180 in `Classifier.py`.
 After I obtained the transformed train features and test features, I used a linear SVC to train a classifier. The results of different combination of parameters are as follows:
 
 | CHALLEL        		|     Color Space    | orientation   |  pix_per_cell   | cell_per_block   |Training Accuracy	| Test Accuracy    |
@@ -82,7 +73,7 @@ After the test accuracy reaches 0.99, I stoped to try other combinations. Theref
 
 ### Sliding Window Search
 
-For the sliding windows I have chosen 4 different sizes. The vehicle that appears smaller, will be near the horizon. Therefore for the larger window size, the overlap will be smaller. 
+For the sliding windows I have chosen 4 different sizes. The vehicle that appears smaller, will be near the horizon. Therefore for the larger window size, the overlap will be smaller. The code of this part is implemented in line 236 through 256 and function `slide_window()`in 122 through 158 in `car_detection.py`.
 
 | Number  |   x_start_stop        | y_start_stop   |  window size   | overlap       |
 |:-------:|:-------------:|:-------------:|:-------------:|:-------------:|
@@ -95,10 +86,9 @@ For the sliding windows I have chosen 4 different sizes. The vehicle that appear
 
 
 ### Heatmap
-At first, I obtained the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions. Then I used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap and constructed bounding boxes to cover the area of each blob detected.  
-Here is an example of 
+At first, I obtained the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions. Then I used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap and constructed bounding boxes to cover the area of each blob detected.  The code of this part is implemented in line 191 through 223 with function `add_heat()`, `apply_threshold` and `draw_labeled_bboxes` in 122 through 158 in `car_detection.py`.
 
-### Here are six frames with positive detections and their corresponding heatmaps:
+Here are five test images with positive detections and their corresponding heatmaps:
 
 ![alt text][image7]
 ![alt text][image8]
@@ -106,11 +96,11 @@ Here is an example of
 ![alt text][image10]
 ![alt text][image11]
 
-### Here the resulting bounding boxes are drawn onto a test image:
+Here is the example with the resulting bounding boxes are drawn onto a test image:
+![alt text][image12]
 
 ### Video Implementation
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](./project_video.mp4)
 ---
 
