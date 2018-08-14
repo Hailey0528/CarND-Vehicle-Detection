@@ -101,15 +101,12 @@ Here is an example of
 ### Here are six frames with positive detections and their corresponding heatmaps:
 
 ![alt text][image7]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
 ![alt text][image8]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
 ![alt text][image9]
 ![alt text][image10]
 ![alt text][image11]
 
+### Here the resulting bounding boxes are drawn onto a test image:
 
 ### Video Implementation
 
