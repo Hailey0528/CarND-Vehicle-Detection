@@ -20,9 +20,12 @@ The goals / steps of this project are the following:
 [image3]: ./output_images/Compare_Color.jpg
 [image4]: ./output_images/Compare_Channel.jpg
 [image5]: ./output_images/Compare_HOG.jpg
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
+[image6]: ./output_images/example1.jpg
+[image7]: ./output_images/example2.jpg
+[image8]: ./output_images/example3.jpg
+[image9]: ./output_images/example4.jpg
+[image10]: ./output_images/example5.jpg
+[video1]: ./output_images/example3.jpg
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
