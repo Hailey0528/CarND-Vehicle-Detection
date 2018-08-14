@@ -82,6 +82,7 @@ After the test accuracy reaches 0.99, I stoped to try other combinations. Theref
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 For the sliding windows I have chosen 4 different size
+
 | Number  |   x_start_stop        | y_start_stop   |  window size   | overlap       |
 |:-------:|:-------------:|:-------------:|:-------------:|:-------------:|
 | 1  		|        [600, 1280]  					|[400, 464]    |  64 |0.85  |
