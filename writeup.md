@@ -79,9 +79,7 @@ After the test accuracy reaches 0.99, I stoped to try other combinations. Theref
 
 ### Sliding Window Search
 
-#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
-
-For the sliding windows I have chosen 4 different size
+For the sliding windows I have chosen 4 different sizes. The vehicle that appears smaller, will be near the horizon. Therefore for the larger window size, the overlap will be smaller. 
 
 | Number  |   x_start_stop        | y_start_stop   |  window size   | overlap       |
 |:-------:|:-------------:|:-------------:|:-------------:|:-------------:|
@@ -90,39 +88,30 @@ For the sliding windows I have chosen 4 different size
 | 3     |     [500, 1280]     					|[400, 612]  |96	| 0.7  |
 | 3     |     [None, None]     					|[400, 680]  |128	| 0.5  |
 
-![alt text][image3]
+![alt text][image6]
 
-#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+### Heatmap
+At first, I obtained the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions. Then I used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap and constructed bounding boxes to cover the area of each blob detected.  
+Here is an example of 
 
-![alt text][image4]
----
+### Here are six frames with positive detections and their corresponding heatmaps:
+
+![alt text][image7]
+
+### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
+![alt text][image8]
+
+### Here the resulting bounding boxes are drawn onto the last frame in the series:
+![alt text][image9]
+![alt text][image10]
+![alt text][image11]
+
 
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](./project_video.mp4)
-
-
-#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
-
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
-
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
-
 ---
 
 ### Discussion
