@@ -49,8 +49,8 @@ There are five parameters in `HOG_features()` for extracting of features: `color
 ![alt text][image2]
 
 #### 2. Feature Extraction
-
-I compared the results with different color spaces and same other parameters. The second HOG image with HSV and the forth image with HLS are seem worse than with other color spaces. I just chose the first one RGB color space. The results are as follows:
+For HOG extraction I tried different combination of parameters to check the HOG of car and notcar image. But it is difficult to estimate which one is better from HOG features. So I have also tried different parameter combination of HOG in the classifier part and chosen the combination with best test accuracy.()
+I compared the results with different color spaces and same other parameters. The results are as follows:
 
 ![alt text][image3]
 
@@ -58,40 +58,36 @@ I also tried different HOG channels, and same other parameters. The result with 
 
 ![alt text][image4]
 
-Then I tried to vary the orientation, pixels_per_cell, cells_per_block. The last two HOG image of car image and notcar image are obtained with pix_per_block is equal to 4 and 16. It is obvious that the performance is not good as results with other parameters. The results with original parameters, with changed parameter cell_per_block=4 and cell_per_block=1 are quite small, whereas the results with the results with changed parameter orient=8 and cell_per_block=10 are a little different. But I can not say which one is better. And I just use the original parameter. The results are as follows:
-![alt text][image5]
+Then I tried to vary the orientation, pixels_per_cell, cells_per_block. The last two HOG image of car image and notcar image are obtained with pix_per_block is equal to 4 and 16. It is obvious that the performance is not good as results with other parameters. The results with original parameters, with changed parameter cell_per_block=4 and cell_per_block=1 are quite small, whereas the results with the results with changed parameter orient=8 and cell_per_block=10 are a little different. But I can not decide which one is better. The results are as follows:
+![alt text][image5] 
 
-
+Except HOG features I also used color histogram features(), spatial binning features().
 #### 3. Classifier
 
 At first, I obtained all the features of car images and notcar images. Then I created a labels vector to save the expected results, which means, the result is 1 if this is car image, and the result is 0 if this is notcar image. After that, I shuffled all the data, slit it to train data and test data. Then `StandardScaler` implements the Transformer to computer the mean and standard deviation on the training fetures. And this transformation is also applied to test features. 
-After I obtained the transformed train features and test features, I used a linear SVC to train a classifier. 
+After I obtained the transformed train features and test features, I used a linear SVC to train a classifier. The results of different combination of parameters are as follows:
 
 | CHALLEL        		|     Color Space    | orientation   |  pix_per_cell   | cell_per_block   |Training Accuracy	| Test Accuracy    |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
 | '0'     		|     RGB        					|9   | 8   |2  |0.988	| 0.919  |
-| 'ALL'     		|     RGB        				|9   | 8   |2  |0.988 | 0.921  |
-| 'ALL'     		|     HSV      					|9   | 8   |2  |0.970	| 0.894  |
-| 'ALL'     		|     LUV      					|9   | 8   |2  |0.990 | 0.914  |
-| 'ALL'     		|     HLS      					|9   | 8   |2  |0.968 | 0.898  |
-| 'ALL'     		|     YUV      					|9   | 8   |2  |0.990 | 0.908  |
-| 'ALL'     		|    YCrCb     					|9   | 8   |2  |0.992	| 0.921  |
-| 'ALL'     		|     RGB        				|9   | 8   |1  |0.990 | 0.884  |
-| 'ALL'     		|     RGB        					|10  | 8   |2  |	0.996| 0.914  |
-| 'ALL'     		|     RGB        					|11   | 8   |2  | 	|  |
-| 'ALL'     		|    YUV        					|10   | 8   |2  |0.996 	| 0.911   |
+| 'ALL'     		|     RGB        				|9   | 8   |2  |0.988 | 0.972  |
+| 'ALL'     		|     HSV      					|9   | 8   |2  |0.970	| 0.932  |
+| 'ALL'     		|    YCrCb     					|9   | 8   |2  |1.0	| 0.982  |
+| 'ALL'     		|    YCrCb     					|10   | 8   |2  |1.0	| 0.990  |
 
-12, 8, 2, 0.9989, 0.9538
-9, 8, 8, 0.9994, 0.9552
-
-
-
+After the test accuracy reaches 0.99, I stoped to try other combinations. Therefore the parameters for classifier are: YCrCb color space, orientation=10, pix_per_cell=8, cell_per_block=2, All channels.
 
 ### Sliding Window Search
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decide to use different level windows series
+For the sliding windows I have chosen 4 different size
+| Number  |   x_start_stop        | y_start_stop   |  window size   | overlap       |
+|:-------:|:-------------:|:-------------:|:-------------:|:-------------:|
+| 1  		|        [600, 1280]  					|[400, 464]    |  64 |0.85  |
+| 2     |     [500, 1280]      				|[400, 480]  | 80 | 0.8  |
+| 3     |     [500, 1280]     					|[400, 612]  |96	| 0.7  |
+| 3     |     [None, None]     					|[400, 680]  |128	| 0.5  |
 
 ![alt text][image3]
 
@@ -133,5 +129,5 @@ Here's an example result showing the heatmap from a series of frames of video, t
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-In this project, I dont why the test accuracy is lower than the results online from other students. The windows have huge effect on the results. If there are not enough windows, and the prediction is not right, then there are not enough number to estimate there is a car. If there are so many windows, there is chance that the classifier predicts that there are more car than the real number. So it is really difficult to choose the windows.   
+In this project, even the test accuracy of classifier reaches 99% If there are not enough windows, and the prediction is not right, then there are not enough number to estimate there is a car. If there are so many windows, there is chance that the classifier predicts that there are more car than the real number. So it is really difficult to choose the windows.   
 
