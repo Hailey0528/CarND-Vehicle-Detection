@@ -1,7 +1,3 @@
-## Writeup Template
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
 
 **Vehicle Detection Project**
 
@@ -106,8 +102,5 @@ Here's a [link to my video result](./project_video.mp4)
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-In this project, even the test accuracy of classifier reaches 99% If there are not enough windows, and the prediction is not right, then there are not enough number to estimate there is a car. If there are so many windows, there is chance that the classifier predicts that there are more car than the real number. So it is really difficult to choose the windows.   
-
+In this project, At first I learned to extrat features: spatial binning of color, gradient features, HOG features. Based on the features of car images and notcar images I used support vector machines method to train a classifier. The test accuracy of the classifier reaches 99%. But even the test accuracy of classifier is very good, the prediction accuracy of new images with sliding windows is not high. There are many false positives. And the sliding window has huge effect on the results. I have to say this method is time consuming but not robust. With the predicted pisitive detections, I created a heatmap and then threshold that map to identify the vehicle positions. But the results are still not that good. The classifier predicts some shadow image as a car. And I also tried to average the positive windows of last 15 frames, the result is quite the same.
