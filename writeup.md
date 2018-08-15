@@ -97,10 +97,9 @@ Here is the example with the resulting bounding boxes are drawn onto a test imag
 
 ### Video Implementation
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [https://github.com/Hailey0528/CarND-Vehicle-Detection/blob/master/project_video.mp4](./project_video.mp4)
 ---
 
 ### Discussion
-
 
 In this project, At first I learned to extrat features: spatial binning of color, gradient features, HOG features. Based on the features of car images and notcar images I used support vector machines method to train a classifier. The test accuracy of the classifier reaches 99%. But even the test accuracy of classifier is very good, the prediction accuracy of new images with sliding windows is not high. There are many false positives. And the sliding window has huge effect on the results. I have to say this method is time consuming but not robust. With the predicted pisitive detections, I created a heatmap and then threshold that map to identify the vehicle positions. But the results are still not that good. The classifier predicts some shadow image as a car. And I also tried to average the positive windows of last 15 frames, the result is quite the same.
